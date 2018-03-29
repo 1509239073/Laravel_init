@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
+// use Illuminate\Support\Facades\Crypt;
 
 
 
@@ -30,13 +31,20 @@ class UserController extends Controller
         // $a =  $this->hasher->check('123456','$2y$10$ykAdXd8ZETSL3jFqYI/wRO5vJ3J7AJe28kUQzKTKz9DEeZ3c86zsu');
         // dump($a);
         // dump($this->Crypt);
-        $encrypted = Crypt::encrypt('Hello world.');
+     //    $encrypted = Crypt::encrypt('Hello world.');
 
-        $decrypted = Crypt::decrypt($encrypted);
-        dump($encrypted);
-        dump($decrypted);
+     //    $decrypted = Crypt::decrypt($encrypted);
+     //    dump($encrypted);
+     //    dump($decrypted);
+        $users = DB::select('select * from users where id > ?', [1]);
+        // $results = DB::select('select * from users where id = :id', ['id' => 1]);
+        foreach ($users as $key => $value) {
+            dump($value);
+        }
+        // dump($users);
+        // return view('user.profile', ['user' =>$users]);
 
-    	dump(User::findOrFail($id));
-        return view('user.profile', ['user' =>User::findOrFail($id)]);
+    	// dump(User::findOrFail($id));
+        // return view('user.profile', ['user' =>User::findOrFail($id)]);
     }
 }
