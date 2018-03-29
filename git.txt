@@ -1,0 +1,7 @@
+ git config --global credential.helper store
+ git remote add origin https://github.com/1509239073/Laravel.git
+ echo "# Laravel_init" >> README.md
+ git add README.md
+ git commit -m "first commit"
+ git remote add origin https://github.com/1509239073/Laravel_init.git
+ git push -u origin master
