@@ -89,7 +89,12 @@ class UserController extends Controller
         // lockForUpdate 锁避免选择行被其它共享锁修改或删除
         // $users = DB::table('users')->where('id', '>', 10)->lockForUpdate()
         // ->get();
-        $flights = Flight::findOrFail(1);
+        // $flights = Flight::findOrFail(1);
+        $users =User::find(1)->makeVisible('password')->toArray();
+        dump($users);
+        //数据库面向对象 定义属性更多的是
+        //以前是把复杂的东西简单化
+        //现在是把简单的东西复杂化
 
 
         
