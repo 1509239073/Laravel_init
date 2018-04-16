@@ -23,6 +23,7 @@ Route::post('post', 'PostController@store')->name('posts.store');
 //     return view('greeting', ['name' => '学院君']);
 // });
 Route::get('user/{id}', 'UserController@show');
+Route::get('create', 'UserController@create');
 // Route::get('hello', function () {
 //     return 'Hello, Welcome to LaravelAcademy.org';
 // });

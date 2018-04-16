@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-// use App\User;
+use App\User;
 use Illuminate\Console\Command;
 
 class SendEmails extends Command
@@ -39,13 +39,13 @@ class SendEmails extends Command
     public function handle()
     {
         //
-         $name = $this->ask('What is your name?');
-         if ($this->confirm('Do you wish to continue? [y|N]')) {
-         //
-         }
-         // $headers = ['Name', 'Email'];
-         // $users = App\User::all(['name', 'email'])->toArray();
-         // $this->table($headers, $users);
+         // $name = $this->ask('What is your name?');
+         // if ($this->confirm('Do you wish to continue? [y|N]')) {
+         // //
+         // }
+         $headers = ['Name', 'Email'];
+         $users = User::all(['name', 'email'])->toArray();
+         $this->table($headers, $users);
 
 
     }
