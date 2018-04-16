@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Flight;
+// use App\Events\PodcastWasPurchased;
 use DB;
 use Gate;
 use Cache;
+use Storage;
+use Hash;
+
+// use Event;
+
 
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Crypt;
@@ -106,11 +112,27 @@ class UserController extends Controller
         // 缓存标签 tags
         // 监听 要在每次缓存操作时执行代码，你可以监听缓存触发的事件，通常，你可以将这些缓存处理器代码放到 EventServiceProvider
         // forerver forget flush 
-        Cache::put('aa', '222', 1);
-        Cache::increment('aa',2);
+        // Cache::put('aa', '222', 1);
+        // Cache::increment('aa',2);
 
-        dump(Cache::get('aa'));
+        // dump(Cache::get('aa'));
+        // $user = User::findOrFail(2);
+        // Event::fire(new PodcastWasPurchased($user));
+        // 文件属性，添加删除追加 
+        // Storage::disk('local')->append('file.txt', 'Contents22');
+        // $user = User::findOrFail(1);
+        // $user->fill([
+        //     'password' => Hash::make('plain-text')
+        // ])->save();
+        // $user = User::findOrFail(1)->password;
+        // if(Hash::check('plain-text', $user)){
+        //     echo 1;
+        // }
+        // dump(bcrypt(11));
         
+
+ 
+
 
 
 
@@ -132,7 +154,10 @@ class UserController extends Controller
               })->reject(function ($name) {
                   return empty($name);
               });
-        // all avg
+        // all 数组 avg 平均数 chunk 切割 collapsed contains 包含 返回 true false count diff 不同值
+        // each func 执行回调 every(4) 每4个 except 除了 only  filter 过滤 first 
+        // flatten 方法将多维度的集合变成一维的 flip 键值交换 forget 移除
+        // forPage 该方法需要传入页数和每页显示数目参数。
         $collection = collect([
              ['name' => 'JavaScript: The Good Parts', 'pages' => 176],
              ['name' => 'JavaScript: The Definitive Guide', 'pages' => 1096],]);
