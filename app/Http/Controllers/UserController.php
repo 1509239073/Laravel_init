@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Tools\CustomPage;
 use App\Flight;
 // use App\Events\PodcastWasPurchased;
 use DB;
@@ -98,7 +99,7 @@ class UserController extends Controller
         // lockForUpdate 锁避免选择行被其它共享锁修改或删除
         // $users = DB::table('users')->where('id', '>', 10)->lockForUpdate()
         // ->get();
-        $flights = Flight::findOrFail(1);
+        // $flights = Flight::findOrFail(1);
         // $users =User::find(1)->makeVisible('password')->toArray();
         // dump($users);
         //数据库面向对象 定义属性更多的是
@@ -139,8 +140,12 @@ class UserController extends Controller
         
  
         // dump($flights->name);
-
-        
+        $data = DB::table('users')->forPage(2, 5)->orderBy('id', 'desc')->get();
+        $count = DB::table('users')->count();
+        $countPage = ceil($count / 5);
+        $pages = CustomPage::getSelfPageView(1, $countPage, '/Laravel/public/user/1', '');
+        // $users = DB::table('users')->paginate(15);
+        return view('user.profile', ['users' => $data,'pages'=>$pages]);
         
     	// dump(User::findOrFail($id));
         // return view('user.profile', ['user' =>User::findOrFail($id)]);
