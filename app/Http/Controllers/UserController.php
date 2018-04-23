@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Tools\CustomPage;
 use App\Flight;
+use App\Jobs\SendReminderEmail;
 // use App\Events\PodcastWasPurchased;
 use DB;
 use Gate;
@@ -29,6 +30,7 @@ class UserController extends Controller
      * @return Response
      * @author LaravelAcademy.org
      */
+   
     public function show(Request $request,$id)
     {   
         // $request->session()->put('key111', 'taixing');
@@ -140,19 +142,24 @@ class UserController extends Controller
         
  
         // dump($flights->name);
-        $data = DB::table('users')->forPage(2, 5)->orderBy('id', 'desc')->get();
-        $count = DB::table('users')->count();
-        $countPage = ceil($count / 5);
-        $pages = CustomPage::getSelfPageView(1, $countPage, '/Laravel/public/user/1', '');
-        // $users = DB::table('users')->paginate(15);
-        return view('user.profile', ['users' => $data,'pages'=>$pages]);
+        // $data = DB::table('users')->forPage(2, 5)->orderBy('id', 'desc')->get();
+        // $count = DB::table('users')->count();
+        // $countPage = ceil($count / 5);
+        // $pages = CustomPage::getSelfPageView(1, $countPage, '/Laravel/public/user/1', '');
+        // // $users = DB::table('users')->paginate(15);
+        // return view('user.profile', ['users' => $data,'pages'=>$pages]);
         
     	// dump(User::findOrFail($id));
         // return view('user.profile', ['user' =>User::findOrFail($id)]);
         // $users=DB::table('users')->paginate(10);
         // return view('user.profile',['users'=>$users]);
+        $user = User::findOrFail(2);
+
+        $this->dispatch((new SendReminderEmail($user))->delay(2));
     }
-    public function create(){
+
+
+    public function create($id){
         //回调过滤集合 reject
         $collection = collect(['taylor', 'abigail', null])->map(function ($name) {
                   return strtoupper($name);
